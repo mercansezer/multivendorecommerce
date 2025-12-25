@@ -17,6 +17,7 @@ export default function Home() {
       </div>
 
       <div>
+        <p>Hi</p>
         <Textarea placeholder="Hello World" />
       </div>
       <div>
