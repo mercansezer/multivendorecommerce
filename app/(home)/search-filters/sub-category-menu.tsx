@@ -26,14 +26,14 @@ export const SubCategoryMenu = ({
         style={{ backgroundColor }}
         className="w-60 text-black rounded-md overflow-hidden border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-[2px] -translate-y-[2px]  "
       >
-        {category.subCategories.map((category) => {
+        {category.subCategories.map((cat) => {
           return (
             <Link
-              key={category.name}
-              href={category.slug}
+              key={cat.name}
+              href={`/${category.slug}/${cat.slug}`}
               className="w-full text-left p-4 hover:bg-black hover:text-white flex justify-between items-center underline font-medium text-[14px] "
             >
-              {category.name}
+              {cat.name}
             </Link>
           );
         })}

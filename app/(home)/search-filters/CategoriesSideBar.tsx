@@ -88,7 +88,10 @@ export default function CategoriesSideBar({
                     className="w-full text-left p-4 hover:bg-black hover:text-white flex items-center text-base font-medium cursor-pointer"
                     key={subCategory.slug}
                   >
-                    <Link href={subCategory.slug} className="w-full">
+                    <Link
+                      href={`/${selectedCategory.slug}/${subCategory.slug}`}
+                      className="w-full"
+                    >
                       {subCategory.name}
                     </Link>
                   </button>
