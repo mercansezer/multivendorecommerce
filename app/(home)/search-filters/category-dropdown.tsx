@@ -2,22 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { SubCategoryMenu } from "./sub-category-menu";
 import { useDropDownPosition } from "./use-dropdown-position";
-
-interface Category {
-  _id: string;
-  name: string;
-  slug: string;
-  color?: string;
-  subCategories: Category[];
-}
-interface CategoryDropdownProps {
-  category: Category;
-  isActive?: boolean;
-  isNavigationHovered?: boolean;
-}
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { CategoryDropdownProps } from "../types";
 
 export const CategoryDropdown = ({
   category,
@@ -33,12 +23,13 @@ export const CategoryDropdown = ({
   const position = getDropDownPosition();
 
   const onMouseEnter = () => {
-    if (category.subCategories.length) setIsOpen(true);
+    if (category.subCategories?.length) setIsOpen(true);
   };
 
   const onMouseLeave = () => {
     setIsOpen(false);
   };
+
   return (
     <div
       className="relative"
@@ -50,17 +41,19 @@ export const CategoryDropdown = ({
         <Button
           variant="elevated"
           className={cn(
-            "h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
-            isActive && !isNavigationHovered && "bg-white border-primary"
+            "h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black text-[14px]",
+            isActive && !isNavigationHovered && "bg-white border-primary",
+            isOpen &&
+              "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-[4px] -translate-y-[4px]",
           )}
         >
-          {category.name}
+          <Link href={category.slug}>{category.name}</Link>
         </Button>
         {category.subCategories && category.subCategories.length > 0 && (
           <div
             className={cn(
-              "opacity-0 absolute -bottom-3 w-0 h-0 border-l-[10px] border-r-[10px]  border-b-[10px] border-l-transparent border-r-transparent  border-b-black  left-1/2 -translate-x-1/2",
-              isOpen && "opacity-100"
+              "opacity-0 absolute -bottom-3 w-0 h-0 border-l-[10px] border-r-[10px]  border-b-[10px] border-l-transparent border-r-transparent  border-b-black left-1/2 -translate-x-1/2",
+              isOpen && "opacity-100",
             )}
           />
         )}
